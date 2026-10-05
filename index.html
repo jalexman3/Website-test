@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Automation Society</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            border: 0 solid;
+        }
+
+        :root {
+            --primary-blue: #3EA7E6;
+            --dark-blue: #1A3A4D;
+            --medium-blue: #2E5F7D;
+            --teal: #4B8A9B;
+            --dark-grey: #2A3F4F;
+            --white: #FFFFFF;
+            --orange: #FF9500;
+            --bg: #0F1E2A;
+            --fg: #E8F0F6;
+            --accent: #3EA7E6;
+
+            --font-display: 'Montserrat', sans-serif;
+            --font-body: 'Roboto', sans-serif;
+        }
+
+        html, body {
+            font-family: var(--font-body);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: var(--bg);
+            color: var(--fg);
+            line-height: 1.5;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: rgba(26, 58, 77, 0.5);
+            border-bottom: 1px solid rgba(62, 167, 230, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--fg);
+            letter-spacing: -0.03em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--fg);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--dark-blue);
+            padding: 0.625rem 1.5rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+            font-family: var(--font-display);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+            box-shadow: 0 0 20px rgba(62, 167, 230, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--fg);
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, var(--accent) 0%, #5BB8E8 50%, var(--teal) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: rgba(232, 240, 246, 0.8);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(62, 167, 230, 0.1) 0%, rgba(75, 138, 155, 0.1) 100%);
+            border: 1px solid rgba(62, 167, 230, 0.2);
+            border-radius: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 4rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 4rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.875rem, 6vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--fg);
+            letter-spacing: -0.03em;
+        }
+
+        section p {
+            color: rgba(232, 240, 246, 0.75);
+            line-height: 1.7;
+        }
+
+        /* Feature Section */
+        .features {
+            background: linear-gradient(180deg, rgba(46, 95, 125, 0.05) 0%, rgba(75, 138, 155, 0.05) 100%);
+            border-top: 1px solid rgba(62, 167, 230, 0.1);
+            border-bottom: 1px solid rgba(62, 167, 230, 0.1);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(26, 58, 77, 0.4);
+            padding: 2rem;
+            border: 1px solid rgba(62, 167, 230, 0.2);
+            border-radius: 0.75rem;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent);
+            background: rgba(26, 58, 77, 0.6);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(62, 167, 230, 0.15);
+        }
+
+        .feature-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--fg);
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+        }
+
+        /* Dark Section */
+        .dark-section {
+            background: linear-gradient(180deg, #1A3A4D 0%, #2A3F4F 100%);
+            color: var(--fg);
+        }
+
+        .dark-section h2 {
+            color: var(--fg);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            background: rgba(62, 167, 230, 0.1);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(62, 167, 230, 0.2);
+        }
+
+        .step:hover {
+            border-color: var(--accent);
+            background: rgba(62, 167, 230, 0.15);
+        }
+
+        .step h3 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--fg);
+        }
+
+        .step p {
+            font-size: 0.9rem;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background: linear-gradient(180deg, rgba(46, 95, 125, 0.05) 0%, rgba(75, 138, 155, 0.05) 100%);
+            border-top: 1px solid rgba(62, 167, 230, 0.1);
+            border-bottom: 1px solid rgba(62, 167, 230, 0.1);
+        }
+
+        .pricing-card {
+            background: linear-gradient(135deg, var(--accent) 0%, #2E8FBF 100%);
+            color: var(--fg);
+            padding: 3rem 2rem;
+            border-radius: 1.5rem;
+            text-align: center;
+            max-width: 400px;
+            margin: 0 auto;
+            box-shadow: 0 20px 50px rgba(62, 167, 230, 0.2);
+        }
+
+        .pricing-card .price {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+
+        .pricing-card .price-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .pricing-card p {
+            color: rgba(232, 240, 246, 0.95);
+            margin: 1.5rem 0;
+        }
+
+        .pricing-card .btn-pricing {
+            background: var(--bg);
+            color: var(--accent);
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: var(--font-display);
+            width: 100%;
+            margin-top: 2rem;
+            transition: all 0.2s;
+        }
+
+        .pricing-card .btn-pricing:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* FAQ Section */
+        .faq {
+            background: linear-gradient(180deg, rgba(46, 95, 125, 0.05) 0%, rgba(75, 138, 155, 0.05) 100%);
+        }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(62, 167, 230, 0.2);
+            padding: 1.5rem 0;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            font-family: var(--font-display);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--fg);
+            transition: color 0.2s;
+        }
+
+        .faq-question:hover {
+            color: var(--accent);
+        }
+
+        .faq-answer {
+            color: rgba(232, 240, 246, 0.75);
+            margin-top: 1rem;
+            line-height: 1.7;
+            display: none;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(26, 58, 77, 0.8) 0%, rgba(42, 63, 79, 0.8) 100%);
+            color: var(--fg);
+            text-align: center;
+            border-top: 1px solid rgba(62, 167, 230, 0.2);
+            border-bottom: 1px solid rgba(62, 167, 230, 0.2);
+        }
+
+        .cta-section h2 {
+            color: var(--fg);
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            background: var(--accent);
+            color: var(--dark-blue);
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            font-family: var(--font-display);
+            transition: all 0.2s;
+        }
+
+        .cta-button:hover {
+            background: var(--primary-light);
+            box-shadow: 0 0 20px rgba(62, 167, 230, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-blue);
+            color: var(--fg);
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(62, 167, 230, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .footer-logo-text {
+            font-family: var(--font-display);
+            font-size: var(--text-2xl);
+            font-weight: 700;
+            color: var(--fg);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .footer-links a {
+            color: var(--fg);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            color: rgba(232, 240, 246, 0.6);
+            font-size: 0.9rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 3rem 1.5rem;
+                gap: 2rem;
+            }
+
+            .hero-image {
+                height: 300px;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+
+            section h2 {
+                font-size: 1.75rem;
+                margin-bottom: 2rem;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-links {
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 1.75rem;
+            }
+
+            section h2 {
+                font-size: 1.5rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">
+            <img src="./braind_assets/AIS LOGO.png" alt="AIS Logo">
+            <span class="logo-text">AIS</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#strategy">Strategy</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contact" class="btn-primary">Get Started</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Connect, Learn, and Grow with AI Automation</h1>
+            <p>Join the world's most innovative community exploring AI automation. Unlock the future of intelligent workflows and transform your business with cutting-edge automation solutions.</p>
+            <button class="btn-primary">Join Our Community</button>
+        </div>
+        <div class="hero-image">🤖</div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Why Join AI Automation Society</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Expert Knowledge</h3>
+                    <p>Learn from industry leaders and cutting-edge practitioners sharing real-world insights and best practices.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Global Network</h3>
+                    <p>Connect with like-minded professionals and build meaningful relationships across the globe.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Learning Resources</h3>
+                    <p>Access exclusive tutorials, case studies, and documentation to accelerate your journey.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Innovation Lab</h3>
+                    <p>Collaborate on projects, share ideas, and pioneer the next generation of AI solutions.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Real-World Use Cases</h3>
+                    <p>Explore proven implementations and best practices from companies transforming their operations.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Continuous Growth</h3>
+                    <p>Stay ahead with monthly workshops, webinars, and exclusive access to emerging technologies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strategy Section -->
+    <section id="strategy" class="dark-section">
+        <div class="container">
+            <h2>Your Automation Journey in Four Steps</h2>
+            <div class="steps-grid">
+                <div class="step">
+                    <h3>1. Discover</h3>
+                    <p>Explore automation possibilities and learn how AI can transform your workflows and boost productivity.</p>
+                </div>
+                <div class="step">
+                    <h3>2. Learn</h3>
+                    <p>Master the skills and best practices through our comprehensive learning resources and community support.</p>
+                </div>
+                <div class="step">
+                    <h3>3. Implement</h3>
+                    <p>Deploy automation solutions in your organization with guidance from experienced practitioners.</p>
+                </div>
+                <div class="step">
+                    <h3>4. Scale</h3>
+                    <p>Optimize and expand your automation initiatives to drive continuous business growth.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section>
+        <div class="container">
+            <h2>A Growing Global Community</h2>
+            <p style="text-align: center; margin-bottom: 0;">Join thousands of professionals who are already automating, innovating, and leading the AI revolution. Whether you're just starting your automation journey or leading enterprise-scale implementations, you'll find your place in our thriving community.</p>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2>Simple, Transparent Membership</h2>
+            <div class="pricing-card">
+                <div class="price-label">Get Started for Just</div>
+                <div class="price">Free</div>
+                <div class="price-label">First Month</div>
+                <p>Access community, resources, and networking opportunities. Upgrade anytime for premium features.</p>
+                <button class="btn-pricing">Join Now</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item active">
+                <div class="faq-question">
+                    <span>How do I get started?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>It's simple! Click "Join Now" to create your account. You'll immediately gain access to our community, learning resources, and networking opportunities.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What's included in membership?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Members get access to exclusive webinars, learning materials, case studies, a global network of professionals, and monthly workshops on AI automation topics.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Can I cancel my membership?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Absolutely. You can cancel your membership anytime without penalties or long-term commitments.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Is there customer support?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes! Our community team is available to help you with questions and provide guidance on your automation journey.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="cta-section">
+        <div class="container">
+            <h2>Ready to Transform Your Workflows?</h2>
+            <p>Join thousands of professionals building the future of AI automation. Start your journey today.</p>
+            <button class="cta-button">Get Started Now</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="./braind_assets/AIS LOGO.png" alt="AIS Logo">
+                <span class="footer-logo-text">AI Automation Society</span>
+            </div>
+            <div class="footer-links">
+                <a href="#features">Features</a>
+                <a href="#strategy">Strategy</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#faq">FAQ</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AI Automation Society. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const faqItem = this.closest('.faq-item');
+                faqItem.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
